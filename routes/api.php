@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,10 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('auth')->namespace('Auth')->group(function (){
+    Route::post('login', 'AuthApiController@login');
+    Route::post('signup', 'AuthApiController@signup');
+    Route::middleware('auth:api')->get('logout', 'AuthApiController@logout');
 });
